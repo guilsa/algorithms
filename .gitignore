@@ -1,0 +1,12 @@
+*.env
+*.DS_Store
+
+*npm-debug.log
+
+# compiled output
+dist
+tmp
+
+# dependencies
+bower_components/
+node_modules/
