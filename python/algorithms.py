@@ -1,6 +1,17 @@
 from string import ascii_letters
 import unittest
 
+def max_sub_array_of_size_k(k, arr):
+  window_start = window_total = max_window_total = 0
+  for window_end in range(len(arr)):
+    window_total += arr[window_end]
+    if window_end >= k - 1:
+      if max_window_total < window_total:
+        max_window_total = window_total
+      window_total -= arr[window_start]
+      window_start += 1
+  return max_window_total
+
 def find_averages_of_subarrays(k, array):
   '''
   o(n) linear time
@@ -84,6 +95,10 @@ def is_palindrome(s):
 
 
 class Test(unittest.TestCase):
+
+  def test_max_sub_array_of_size_k(self):
+    result = max_sub_array_of_size_k(3, [2, 1, 5, 1, 3, 2])
+    self.assertEqual(result, 9)
 
   def test_find_averages_of_subarrays(self):
     result = find_averages_of_subarrays(5, [1, 3, 2, 6, -1, 4, 1, 8, 2])
