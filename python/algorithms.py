@@ -2,6 +2,9 @@ from string import ascii_letters
 import unittest
 
 def find_averages_of_subarrays(k, array):
+  '''
+  o(n) linear time
+  '''
   result = []
   window_start, window_sum = 0, 0.0
   for window_end in range(len(array)):
