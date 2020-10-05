@@ -9,15 +9,15 @@ def max_sub_array_of_size_k(k, arr):
   Input: [2, 1, 5, 1, 3, 2], k=3 
   Output: 9
   '''
-  window_start = window_total = max_window_total = 0
+  window_start = max_window = window_sum = 0
   for window_end in range(len(arr)):
-    window_total += arr[window_end]
+    window_sum += arr[window_end]
     if window_end >= k - 1:
-      if max_window_total < window_total:
-        max_window_total = window_total
-      window_total -= arr[window_start]
+      max_window = max(max_window, window_sum)
+      window_sum -= arr[window_start]
       window_start += 1
-  return max_window_total
+  return max_window
+
 
 def find_averages_of_subarrays(k, array):
   '''
