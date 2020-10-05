@@ -2,6 +2,13 @@ from string import ascii_letters
 import unittest
 
 def max_sub_array_of_size_k(k, arr):
+  '''
+  Given an array of positive numbers and a positive
+  number k, find the maximum sum of any continuous 
+  subarray of size k
+  Input: [2, 1, 5, 1, 3, 2], k=3 
+  Output: 9
+  '''
   window_start = window_total = max_window_total = 0
   for window_end in range(len(arr)):
     window_total += arr[window_end]
