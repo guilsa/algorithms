@@ -1,6 +1,21 @@
 from string import ascii_letters
 import unittest
 
+def smallest_subarray_with_given_sum(s, arr):
+  window_sum = 0
+  min_length = float('inf')
+  window_start = 0
+
+  for window_end in range(0, len(arr)):
+    window_sum += arr[window_end] 
+    while window_sum >= s:
+      min_length = min(min_length, window_end - window_start + 1)
+      window_sum -= arr[window_start]
+      window_start += 1
+  if min_length == float('inf'):
+    return 0
+  return min_length
+
 def max_sub_array_of_size_k(k, arr):
   '''
   Given an array of positive numbers and a positive
@@ -17,7 +32,6 @@ def max_sub_array_of_size_k(k, arr):
       window_sum -= arr[window_start]
       window_start += 1
   return max_window
-
 
 def find_averages_of_subarrays(k, array):
   '''
@@ -102,6 +116,11 @@ def is_palindrome(s):
 
 
 class Test(unittest.TestCase):
+
+  def test_smallest_subarray_with_given_sum(self):
+    self.assertEqual(smallest_subarray_with_given_sum(7, [2, 1, 5, 2, 3, 2]), 2)
+    self.assertEqual(smallest_subarray_with_given_sum(7, [2, 1, 5, 2, 8]), 1)
+    self.assertEqual(smallest_subarray_with_given_sum(8, [3, 4, 1, 1, 6]), 3)
 
   def test_max_sub_array_of_size_k(self):
     result = max_sub_array_of_size_k(3, [2, 1, 5, 1, 3, 2])
