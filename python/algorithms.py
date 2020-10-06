@@ -1,6 +1,26 @@
 from string import ascii_letters
 import unittest
 
+def longest_substring_with_k_distinct(str, k):
+  window_start = max_length = 0
+  char_freq = {}
+
+  for window_end in range(len(str)):
+    right_char = str[window_end]
+    if right_char not in char_freq:
+      char_freq[right_char] = 0
+    char_freq[right_char] += 1
+
+    while len(char_freq) > k:
+      left_char = str[window_start]
+      char_freq[left_char] -= 1
+      if char_freq[left_char] == 0:
+        del char_freq[left_char]
+      window_start += 1
+    
+    max_length = max(max_length, window_end - window_start + 1)
+  return max_length
+
 def smallest_subarray_with_given_sum(s, arr):
   window_start = window_sum = 0
   min_length = float('inf')
@@ -115,6 +135,11 @@ def is_palindrome(s):
 
 
 class Test(unittest.TestCase):
+
+  def test_longest_substring_with_k_distinct(self):
+    self.assertEqual(longest_substring_with_k_distinct("araaci", 2), 4)
+    self.assertEqual(longest_substring_with_k_distinct("araaci", 1), 2)
+    self.assertEqual(longest_substring_with_k_distinct("cbbebi", 3), 5)
 
   def test_smallest_subarray_with_given_sum(self):
     self.assertEqual(smallest_subarray_with_given_sum(7, [2, 1, 5, 2, 3, 2]), 2)
