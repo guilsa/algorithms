@@ -2,6 +2,15 @@ from string import ascii_letters
 import unittest
 
 def longest_substring_with_k_distinct(str, k):
+  '''
+  Iterate through array
+    Compute char_right and char_left
+    Start with char_right and start sliding right side of window towards the right. Track character occurance in char_freq hash.
+    Move to char_left. All char_left will already be accounted for in char_freq. 
+      Delete from char_freq is freq is 0, then slide left side of window to right.
+      Do this while length of char_freq is greater than k
+  When you're done, re-compute max_length as bigger number between itself and difference between win_end and win_start + 1
+  '''
   window_start = max_length = 0
   char_freq = {}
 
