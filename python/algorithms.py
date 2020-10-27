@@ -3,6 +3,11 @@ import unittest
 
 def longest_substring_with_k_distinct(str, k):
   '''
+  Given a string, find the length of the longest substring in it with no more than K distinct characters.
+  Input: String="araaci", K=2
+  Output: 4
+  Explanation: The longest substring with no more than '2' distinct characters is "araa".
+  
   Iterate through array
     Compute char_right and char_left
     Start with char_right and start sliding right side of window towards the right. Track character occurance in char_freq hash.
