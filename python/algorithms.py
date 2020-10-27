@@ -31,6 +31,23 @@ def longest_substring_with_k_distinct(str, k):
   return max_length
 
 def smallest_subarray_with_given_sum(s, arr):
+  '''
+  Find the length of the smallest contiguous subarray whose sum 
+  is greater than or equal to ‘S’. Return 0, if no such subarray 
+  exists.
+  Input: [2, 1, 5, 2, 3, 2], S=7 
+  Output: 2
+
+  Insight: 
+    If you forget what to do in the while loop, list out all 
+    available variables and try to apply common sense and 
+    pick what applies. For ex, it makes sense to do something 
+    with window_sum. `Window_sum` and `s` go hand in hand. 
+    From then on, introducing a while loop makes the most 
+    sense, since we're ensuring we move window_start 
+    to left most position before continuing to move window_end.
+  '''
+
   window_start = window_sum = 0
   min_length = float('inf')
 
