@@ -130,6 +130,38 @@ def merge_sort(list):
   
   return list
 
+def get_number_of_islands(grid):
+  '''
+  Given a 2D array binaryMatrix of 0s and 1s, implement a 
+  function getNumberOfIslands that returns the number of 
+  islands of 1s in binaryMatrix.
+  '''
+  rows = len(grid)
+  cols = len(grid[0])
+  islands = 0
+  for i in range(rows):
+    for j in range(cols):
+      if grid[i][j] == 1:
+        countIslands(i, j, rows, cols, grid)
+        islands += 1
+  return islands
+
+def countIslands(i, j, rows, cols, grid):
+  stack = []
+  stack.append([i, j])
+  while stack:
+    x, y = stack.pop()
+    if grid[x][y] == 1:
+      grid[x][y] = -1
+      pushIfValid(x + 1, y, rows, cols, stack)
+      pushIfValid(x - 1, y, rows, cols, stack)
+      pushIfValid(x, y + 1, rows, cols, stack)
+      pushIfValid(x, y - 1, rows, cols, stack)
+
+def pushIfValid(x, y, rows, cols, stack):
+  if (x >= 0 and x < rows and y >= 0 and y < cols):
+    stack.append([x, y])
+
 def insertion_sort(list):
   for i in range(len(list)):
     current_value = list[i]
@@ -187,6 +219,23 @@ class Test(unittest.TestCase):
 
   def test_merge_sort(self):
     self.assertEqual(merge_sort([8,4,3,5]), [3,4,5,8])
+
+  def test_get_number_of_islands(self):
+    grid = [
+      [0, 1, 0, 1, 0],
+      [0, 0, 1, 1, 1],
+      [1, 0, 0, 1, 0],
+      [0, 1, 1, 0, 0],
+      [1, 0, 1, 0, 1]
+    ]
+    grid2 = [
+      [1, 1, 0, 0, 0],
+      [1, 1, 0, 0, 0],
+      [0, 0, 1, 0, 0],
+      [0, 0, 0, 1, 1]
+    ]
+    self.assertEqual(get_number_of_islands(grid), 6)
+    self.assertEqual(get_number_of_islands(grid2), 3)
 
   def test_insertion_sort(self):
     self.assertEqual(insertion_sort([8, 0, 6, 3]), [0, 3, 6, 8])
