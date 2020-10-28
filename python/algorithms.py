@@ -19,7 +19,7 @@ def fruits_into_basket(fruits):
   other basket. This can be done if we start with the second
   letter: ['B', 'C', 'B', 'B', 'C']
   '''
-  window_start = 0
+  window_start = max_length = 0
   basket = {}
   for window_end in range(len(fruits)):
     right_fruit = fruits[window_end]
@@ -32,7 +32,8 @@ def fruits_into_basket(fruits):
       if basket[left_fruit] == 0:
         del basket[left_fruit]
       window_start += 1
-  return sum(basket[fruit] for fruit in basket)
+    max_length = max(max_length, window_end - window_start + 1)
+  return max_length
 
 def longest_substring_with_k_distinct(str, k):
   '''
