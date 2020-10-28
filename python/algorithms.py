@@ -136,6 +136,22 @@ def get_number_of_islands(grid):
   function getNumberOfIslands that returns the number of 
   islands of 1s in binaryMatrix.
   '''
+  def countIslands(i, j, rows, cols, grid):
+    stack = []
+    stack.append([i, j])
+    while stack:
+      x, y = stack.pop()
+      if grid[x][y] == 1:
+        grid[x][y] = -1
+        pushIfValid(x + 1, y, rows, cols, stack)
+        pushIfValid(x - 1, y, rows, cols, stack)
+        pushIfValid(x, y + 1, rows, cols, stack)
+        pushIfValid(x, y - 1, rows, cols, stack)
+
+  def pushIfValid(x, y, rows, cols, stack):
+    if (x >= 0 and x < rows and y >= 0 and y < cols):
+      stack.append([x, y])
+
   rows = len(grid)
   cols = len(grid[0])
   islands = 0
@@ -145,22 +161,6 @@ def get_number_of_islands(grid):
         countIslands(i, j, rows, cols, grid)
         islands += 1
   return islands
-
-def countIslands(i, j, rows, cols, grid):
-  stack = []
-  stack.append([i, j])
-  while stack:
-    x, y = stack.pop()
-    if grid[x][y] == 1:
-      grid[x][y] = -1
-      pushIfValid(x + 1, y, rows, cols, stack)
-      pushIfValid(x - 1, y, rows, cols, stack)
-      pushIfValid(x, y + 1, rows, cols, stack)
-      pushIfValid(x, y - 1, rows, cols, stack)
-
-def pushIfValid(x, y, rows, cols, stack):
-  if (x >= 0 and x < rows and y >= 0 and y < cols):
-    stack.append([x, y])
 
 def insertion_sort(list):
   for i in range(len(list)):
