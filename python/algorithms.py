@@ -1,6 +1,39 @@
 from string import ascii_letters
 import unittest
 
+def fruits_into_basket(fruits):
+  '''
+  Given an array of characters where each character represents a
+  fruit tree, you are given two baskets and your goal is to put
+  maximum number of fruits in each basket. The only restriction is
+  that each basket can have only one type of fruit.
+
+  You can start with any tree, but once you have started you can't
+  skip a tree. You will pick one fruit from each tree until you
+  cannot, i.e., you will stop when you have to pick from a third
+  fruit type.
+
+  Input: Fruit=['A', 'B', 'C', 'B', 'B', 'C']
+  Output: 5
+  Explanation: We can put 3 'B' in one basket and two 'C' in the
+  other basket. This can be done if we start with the second
+  letter: ['B', 'C', 'B', 'B', 'C']
+  '''
+  window_start = 0
+  basket = {}
+  for window_end in range(len(fruits)):
+    right_fruit = fruits[window_end]
+    if right_fruit not in basket:
+      basket[right_fruit] = 0
+    basket[right_fruit] += 1
+    while len(basket) > 2:
+      left_fruit = fruits[window_start]
+      basket[left_fruit] -= 1
+      if basket[left_fruit] == 0:
+        del basket[left_fruit]
+      window_start += 1
+  return sum(basket[fruit] for fruit in basket)
+
 def longest_substring_with_k_distinct(str, k):
   '''
   Given a string, find the length of the longest substring in it with no more than K distinct characters.
@@ -199,10 +232,14 @@ def is_palindrome(s):
 
 class Test(unittest.TestCase):
 
+  def test_fruits_into_basket(self):
+    self.assertEqual(fruits_into_basket(['A', 'B', 'C', 'A', 'C']), 3)
+    self.assertEqual(fruits_into_basket(['A', 'B', 'C', 'B', 'B', 'C']), 5)
+
   def test_longest_substring_with_k_distinct(self):
-    self.assertEqual(longest_substring_with_k_distinct("araaci", 2), 4)
-    self.assertEqual(longest_substring_with_k_distinct("araaci", 1), 2)
-    self.assertEqual(longest_substring_with_k_distinct("cbbebi", 3), 5)
+    self.assertEqual(longest_substring_with_k_distinct('araaci', 2), 4)
+    self.assertEqual(longest_substring_with_k_distinct('araaci', 1), 2)
+    self.assertEqual(longest_substring_with_k_distinct('cbbebi', 3), 5)
 
   def test_smallest_subarray_with_given_sum(self):
     self.assertEqual(smallest_subarray_with_given_sum(7, [2, 1, 5, 2, 3, 2]), 2)
