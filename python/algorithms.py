@@ -1,8 +1,15 @@
 from string import ascii_letters
 import unittest
 
-def non_repeat_substring(string):
+def non_repeat_substring(s):
   '''
+  This is the first time that we use a hash to track the location of a
+  char on a string. Notice that the hash holds 2 properties:
+    a) the `if right_char not in char_index_map`, which gives us the
+       ability to find the "non-repeat" characteristic within our
+       substring (our while loop condition). It's the first time we use
+       a hash to drive while condition and move `window_start` forward.
+    b) the `char_index_map[right_char]`, which gives us its location.
   '''
   pass
 
@@ -42,18 +49,24 @@ def fruits_into_basket(fruits):
 
 def longest_substring_with_k_distinct(string, k):
   '''
-  Given a string, find the length of the longest substring in it with no more than K distinct characters.
+  Given a string, find the length of the longest substring in it with no
+  more than K distinct characters.
   Input: String="araaci", K=2
   Output: 4
-  Explanation: The longest substring with no more than '2' distinct characters is "araa".
+  Explanation: The longest substring with no more than '2' distinct 
+  characters is "araa".
   
-  Iterate through array
-    Compute char_right and char_left
-    Start with char_right and start sliding right side of window towards the right. Track character occurance in char_freq hash.
-    Move to char_left. All char_left will already be accounted for in char_freq. 
-      Delete from char_freq is freq is 0, then slide left side of window to right.
-      Do this while length of char_freq is greater than k
-  When you're done, re-compute max_length as bigger number between itself and difference between win_end and win_start + 1
+  - Iterate through array
+    - Compute char_right and char_left
+    - Start with char_right and start sliding right side of window
+    towards the right. Track character occurance in char_freq hash.
+    - Move to char_left. All char_left will already be accounted for in
+    char_freq.
+      - Delete from char_freq is freq is 0, then slide left side of
+      window to right.
+      - Do this while length of char_freq is greater than k
+  - When you're done, re-compute max_length as bigger number between
+  itself and difference between win_end and win_start + 1
   '''
   window_start = max_length = 0
   char_freq = {}
