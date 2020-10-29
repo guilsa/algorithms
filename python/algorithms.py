@@ -1,6 +1,11 @@
 from string import ascii_letters
 import unittest
 
+def non_repeat_substring(string):
+  '''
+  '''
+  pass
+
 def fruits_into_basket(fruits):
   '''
   Given an array of characters where each character represents a
@@ -35,7 +40,7 @@ def fruits_into_basket(fruits):
     max_length = max(max_length, window_end - window_start + 1)
   return max_length
 
-def longest_substring_with_k_distinct(str, k):
+def longest_substring_with_k_distinct(string, k):
   '''
   Given a string, find the length of the longest substring in it with no more than K distinct characters.
   Input: String="araaci", K=2
@@ -53,14 +58,14 @@ def longest_substring_with_k_distinct(str, k):
   window_start = max_length = 0
   char_freq = {}
 
-  for window_end in range(len(str)):
-    right_char = str[window_end]
+  for window_end in range(len(string)):
+    right_char = string[window_end]
     if right_char not in char_freq:
       char_freq[right_char] = 0
     char_freq[right_char] += 1
 
     while len(char_freq) > k:
-      left_char = str[window_start]
+      left_char = string[window_start]
       char_freq[left_char] -= 1
       if char_freq[left_char] == 0:
         del char_freq[left_char]
