@@ -3,6 +3,22 @@ import unittest
 
 def non_repeat_substring(s):
   '''
+  Given a string, find the length of the longest substring which has no
+  repeating characters.
+  Input: String="aabccbb"
+  Output: 3
+  Explanation: The longest substring without any repeating characters is
+  "abc".
+
+  This problem is a great example of how the sliding window strategy is
+  growing. Here we move `window_start` forward with a `char_index_map`
+  as a dict. Non-repeat property means move `window_start` forward if
+  char is in `char_index_map`. Then `window_start` must equal to the max
+  between `window_start` and `char_index_map[right_char] + 1`. Then we
+  finally save right_char's position with `char_index_map[right_char]
+  = window_end`. This problem is also the first time we use the `max()`
+  function 2X. 
+
   This is the first time that we use a hash to track the location of a
   char on a string. Notice that the hash holds 2 properties:
     a) the `if right_char not in char_index_map`, which gives us the
