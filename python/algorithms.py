@@ -1,6 +1,63 @@
 from string import ascii_letters
 import unittest
 
+def find_word_concatenation(s, words):
+  '''
+  Given a string and a list of words, find all the starting indices of
+  substrings in the given string that are a concatenation of all the
+  given words exactly once without any overlapping of words. It is given
+  that all words are of the same length.
+
+  Input: String="catfoxcat", Words=["cat", "fox"]
+  Output: [0, 3]
+  Explanation: The two substring containing both the words are "catfox"
+  & "foxcat".
+
+  Strategy:
+  first loop -> grows window
+  second loop -> compute next word, increment markers, search solution
+  third loop -> shrinks window
+  '''
+
+  def build_word_count(words):
+    count = {}
+    for word in words:
+      if word not in count:
+        count[word] = 0
+      count[word] +=1
+    return count
+
+  if not words or not s:
+    return []
+
+  word_count = build_word_count(words)
+  word_len = len(words[0])
+  word_count_len = sum(word_count.values())
+  output = []
+
+  for i in range(word_len):
+    s_count = {}
+    left = i
+    s_count_len = 0
+    
+    for j in range(i, len(s), word_len):
+      word = s[j:j + word_len]
+      if word not in s_count:
+        s_count[word] = 0
+      s_count[word] += 1
+      s_count_len += 1
+      
+      while s_count_len > word_count_len:
+        s_count[s[left:left + word_len]] -= 1
+        s_count_len -= 1
+        if s_count[s[left:left + word_len]] == 0:
+          s_count.pop(s[left:left + word_len])
+        left += word_len
+      if s_count == word_count:
+        output.append(left)
+
+  return output
+
 def non_repeat_substring(s):
   '''
   Given a string, find the length of the longest substring which has no
@@ -266,6 +323,13 @@ def is_palindrome(s):
 
 
 class Test(unittest.TestCase):
+
+  def test_find_word_concatenation(self):
+    self.assertEqual(
+      find_word_concatenation(
+        'zackzackbethzack', ['zack', 'beth']
+      ), [4, 8]
+    )
 
   def test_fruits_into_basket(self):
     self.assertEqual(fruits_into_basket(['A', 'B', 'C', 'A', 'C']), 3)
